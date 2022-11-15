@@ -3,17 +3,18 @@ import "./App.css";
 import Hero from "./components/Hero";
 import Nav from "./components/Nav";
 import { loadStdlib } from '@reach-sh/stdlib';
-import MetaMaskOnboarding from '@metamask/onboarding';
+import {ethers} from "ethers"
 
 const stdlib = loadStdlib();
 const providerEnv = 'TestNet';
 
 function App() {
   const [session, setSession] = useState();
+  const [provider, setProvider] = useState();
 
   return (
     <div className="App">
-      <Nav />
+      <Nav provider={provider} setProvider={setProvider}/>
       <Hero />
     </div>
   );
