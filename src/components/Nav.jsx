@@ -28,15 +28,15 @@ export default function Nav(props) {
 
   return (
     <nav>
-      <div className="navbar bg-neutral text-neutral-content row-span-full">
+      <div className="navbar bg-primary text-primary-content row-span-full">
         <a className="normal-case text-xl flex-1">🎁 GIFTED</a>
 
-        <label htmlFor="worksModal" className="btn">
+        <label htmlFor="worksModal" className="btn btn-secondary">
           How it works
         </label>
         <WorksModal />
 
-        <label htmlFor="metamaskModal" className="btn btn-main bg-green-500">
+        <label htmlFor="metamaskModal" className="btn btn-focus">
         {connected ? "Connect to Metamask" : address}
         </label>
         <MetamaskModal provider={props.provider} setProvider={props.setProvider} setAddress={setAddress}/>

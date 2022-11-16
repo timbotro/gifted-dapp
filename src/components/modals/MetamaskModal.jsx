@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import { ethers } from "ethers";
 import detectEthereumProvider from "@metamask/detect-provider";
 
@@ -33,7 +33,6 @@ export default function MetamaskModal(props) {
           if (chainId === "0x507") {
             const prov = new ethers.providers.Web3Provider(window.ethereum);
             props.setProvider(prov);
-            console.log(prov);
           }
           provider.on("accountsChanged", (accounts) => {
             if (accounts.length === 0) {
@@ -54,6 +53,11 @@ export default function MetamaskModal(props) {
     }
   };
 
+  const disconnectMetamask = () =>{
+    props.setProvider("") 
+    window.location.reload();
+  }
+
   const connected = typeof(props.provider) !== "undefined"
 
   return (
@@ -63,9 +67,9 @@ export default function MetamaskModal(props) {
         <div className="modal-box base-300">
           <h3 className="font-bold text-lg">Connect to a Metamask Wallet</h3>
           <div>
-            {!connected ? <button className="btn btn-primary btn-wide bg-green-400 align-middle mt-6 ml-20" onClick={configureMoonbaseAlpha}>
+            {!connected ? <label  htmlFor="metamaskModal" className="btn btn-primary btn-wide bg-primary align-middle mt-6 ml-20" onClick={configureMoonbaseAlpha}>
               CONNECT
-            </button> : <button className="btn btn-primary btn-wide bg-green-400 align-middle mt-6 ml-20" onClick="">
+            </label> : <button className="btn btn-primary btn-wide bg-primary align-middle mt-6 ml-20" onClick={disconnectMetamask}>
               DISCONNECT
             </button>} 
           </div>
