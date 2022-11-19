@@ -1,30 +1,15 @@
 import React, { useState } from "react";
 import WorksModal from "./modals/WorksModal";
-import { emojisplosion } from "emojisplosion";
+
 import MetamaskModal from "./modals/MetamaskModal";
+import GiftsModal from "./modals/GiftsModal";
 
 export default function Nav(props) {
-  const [address, setAddress] = useState("")
+  const [address, setAddress] = useState("");
 
-  function explode() {
-    emojisplosion({
-      emojiCount: 101,
-      emojis: ["🎁"],
-      physics: {
-        initialVelocities: {
-          rotation: {
-            max: 14,
-            min: -14,
-          },
-        },
-        gravity: 0.1,
-        framerate: 60,
-      },
-    });
-    console.log("exploded");
-  }
-
-  const connected = typeof(props.provider) === "undefined"
+  const disconnected = typeof props.provider === "undefined";
+  console.log(disconnected);
+  console.log("props.provider:   " + props.provider);
 
   return (
     <nav>
@@ -36,15 +21,15 @@ export default function Nav(props) {
         </label>
         <WorksModal />
 
-        <label htmlFor="metamaskModal" className="btn btn-focus">
-        {connected ? "Connect to Metamask" : address}
+        <label htmlFor="giftsModal" className="btn btn-secondary">
+          My Sent Gifts
         </label>
-        <MetamaskModal provider={props.provider} setProvider={props.setProvider} setAddress={setAddress}/>
+        <GiftsModal />
 
-        {/* <OnboardingButton /> */}
-        {/* <button className="btn btn-main bg-green-500" onClick={configureMoonbaseAlpha}>
-          
-        </button> */}
+        <label htmlFor="metamaskModal" className="btn btn-focus">
+          {disconnected ? "Connect to Metamask" : address}
+        </label>
+        <MetamaskModal provider={props.provider} setProvider={props.setProvider} setAddress={setAddress} />
       </div>
     </nav>
   );
