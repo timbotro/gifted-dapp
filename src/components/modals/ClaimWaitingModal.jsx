@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import ClipLoader from "react-spinners/ClipLoader";
-import { emojisplosion } from "emojisplosion";
+import { emojisplosion,emojisplosions  } from "emojisplosion";
 import { sleep } from "../../util/utils";
 import {ethers} from "ethers"
 
@@ -10,10 +10,16 @@ const override = {
     borderColor: "red",
   };
 
+  /// TODO: implement cancel of explosions
+  /// store log of opened presents and from whom
+  /// Timeouts
+  /// Maturity
+  /// detecting if claimed already
+
 export default function ClaimWaitingModal(props) {
   const explode = () => {
-    emojisplosion({
-      emojiCount: 101,
+    const {cancel} = emojisplosions({
+      emojiCount: 10,
       emojis: ["💍", "💎", "🪙", "💰️", "💵"],
       physics: {
         initialVelocities: {
@@ -26,6 +32,8 @@ export default function ClaimWaitingModal(props) {
         framerate: 60,
       },
     });
+
+    return cancel
   };
 
   const progressSpinner = () => {
@@ -57,39 +65,30 @@ export default function ClaimWaitingModal(props) {
   };
 
   const convertAmount = (amount) => {
+    console.log("modal console logs")
     console.log(amount)
-    console.log("converted to" + props.state.reach.formatCurrency(amount,18))
-    return props.state.reach.formatCurrency(amount,18)
+    console.log(props.amount)
+    console.log(props.amount.toString())
+    console.log("converted to" + props.state.reach.formatCurrency(props.amount.toString(),4))
+    return props.state.reach.formatCurrency(props.amount.toString(),4)
   }
 
 
   const redeemed = () => {
-    explode();
+    const cancel = explode();
     return (
       <div className="grid grid-cols-1 gap-5">
         <h1 className="text-xl font-bold col-span-1">
-          🎉 Present has been unwrapped 🎉
+          🎉 Present has been successfully claimed 🎉
         </h1>
         <h2 className="text-base col-span-1">
           {" "}
-          Please note down the following code and send to the recepient:
+          You have just unwrapped:
         </h2>
-        <div className="alert alert-success shadow-lg font-bold text-base text-slate">
+        <div className="alert alert-success shadow-lg font-bold text-lg text-slate">
           <div>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="stroke-current flex-shrink-0 h-6 w-6"
-              fill="none"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
-              />
-            </svg>
-            <span className=""> {convertAmount(props.amount)}</span>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+            <span className=""> {props.state.claim.amount} ETH</span>
           </div>
         </div>
       </div>
@@ -108,7 +107,7 @@ export default function ClaimWaitingModal(props) {
             ✕
           </label>
 
-          {props.state.redeemed ? redeemed() : progressSpinner()}
+          {props.state.claim.redeemed ? redeemed() : progressSpinner()}
         </div>
       </div>
     </div>

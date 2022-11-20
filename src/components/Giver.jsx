@@ -29,11 +29,11 @@ export default function Giver(props) {
     props.state.setIsFunded(true)
   }
 
-  const redeemed = (input) => {
+  const informRedeemed = (input) => {
     console.log("Gift has been unwrapped!");
     console.log(input);
-    props.state.setRedeemed(true);
-    setAmount(input)
+    const amount = props.state.reach.formatCurrency(input, 4)
+    props.state.setClaim({redeemed: true, amount });
   };
 
 
@@ -94,7 +94,7 @@ export default function Giver(props) {
       payment: amt,
       maturity: formdata.maturity,
     };
-    backend.Gifter(ctc, { getParams, pass: psuedoRand , funded, redeemed});
+    backend.Gifter(ctc, { getParams, pass: psuedoRand , funded, informRedeemed});
 
 
     const ctcInfoStr = JSON.stringify(await ctc.getInfo(), null, 2);
@@ -236,7 +236,7 @@ export default function Giver(props) {
           </div>
 
           <label htmlFor="sent-waiting-modal" className="btn btn-primary bg-center col-span-2 form-control drop-shadow-md" onClick={sendGift}>SEND GIFT 🚀</label>
-          <SentWaitingModal state={props.state} code={giftCode}/>
+          <SentWaitingModal state={props.state} code={giftCode} setGiftCode={setGiftCode}/>
         </div>
       </form>
     </div>

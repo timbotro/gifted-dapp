@@ -9,6 +9,12 @@ const override = {
   borderColor: "red",
 };
 
+  /// TODO: implement cancel of explosions
+  /// store log of opened presents and for whom
+  /// Timeouts
+  /// Maturity
+  /// detecting if claimed already
+
 export default function SentWaitingModal(props) {
   const inputEl = useRef(null);
   const explode = () => {
@@ -67,6 +73,11 @@ export default function SentWaitingModal(props) {
     );
   };
 
+  const saveAndReset = () => {
+    sessionStorage.setItem("sentGift", { code: props.code });
+    props.state.setIsFunded(false);
+  };
+
   const funded = () => {
     explode();
     return (
@@ -117,6 +128,7 @@ export default function SentWaitingModal(props) {
           <label
             htmlFor="sent-waiting-modal"
             className="btn btn-sm btn-circle absolute right-2 top-2"
+            onClick={saveAndReset}
           >
             ✕
           </label>

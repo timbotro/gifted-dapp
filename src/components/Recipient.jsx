@@ -5,7 +5,7 @@ import ClaimWaitingModal from "./modals/ClaimWaitingModal";
 
 export default function Recipient(props) {
   const [giftcode, setGiftcode] = useState("");
-  const [amount, setAmount] = useState("")
+  const [payAmount, setAmount] = useState("")
   const [codeValidity, setCodeValidity] = useState(true);
   const styles = {
     address: "input input-bordered w-full max-w-xs text-sm",
@@ -32,11 +32,19 @@ export default function Recipient(props) {
     props.state.setIsFunded(true)
   }
 
+  // const informRedeemed = (input) => {
+  //   console.log("Gift has been unwrapped!");
+  //   console.log(input);
+  //   // props.state.setRedeemed(true);
+  //   setAmount(input)
+  //   console.log(props.amount)
+  // };
+
   const informRedeemed = (input) => {
     console.log("Gift has been unwrapped!");
     console.log(input);
-    props.state.setRedeemed(true);
-    setAmount(input)
+    const amount = props.state.reach.formatCurrency(input, 4)
+    props.state.setClaim({redeemed: true, amount });
   };
 
   const unwrap = async () => {
@@ -85,7 +93,7 @@ export default function Recipient(props) {
             </label>
           </div>
           <label htmlFor="claim-waiting-modal" className="btn btn-primary bg-center col-span-3 form-control drop-shadow-md" onClick={unwrap}>Unwrap Present</label>
-          <ClaimWaitingModal amount={amount} state={props.state}/>
+          <ClaimWaitingModal state={props.state}/>
           {/* <div
             className="btn btn-primary bg-center col-span-3 form-control"
             onClick={unwrap}

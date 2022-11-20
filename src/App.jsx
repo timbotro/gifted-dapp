@@ -9,7 +9,8 @@ function App() {
   const [reach, setReach] = useState();
   const [provider, setProvider] = useState();
   const [isFunded, setIsFunded] = useState(false);
-  const [redeemed, setRedeemed] = useState(false);
+  const [claim, setClaim] = useState({redeemed:false, amount:0});
+  
   const state = {
     reach,
     setReach,
@@ -17,8 +18,8 @@ function App() {
     setProvider,
     isFunded,
     setIsFunded,
-    redeemed,
-    setRedeemed
+    claim,
+    setClaim
   };
 
   useEffect(() => {
