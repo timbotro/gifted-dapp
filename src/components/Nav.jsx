@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import WorksModal from "./modals/WorksModal";
 
 import MetamaskModal from "./modals/MetamaskModal";
@@ -6,30 +6,47 @@ import GiftsModal from "./modals/GiftsModal";
 
 export default function Nav(props) {
   const [address, setAddress] = useState("");
+  const [truncAddr, setTruncAddr] = useState("");
 
   const disconnected = typeof props.provider === "undefined";
-  console.log(disconnected);
-  console.log("props.provider:   " + props.provider);
+
+  useEffect(() => {
+    if (address !== ""){
+      const trunc0 = address[0].slice(0, 6);
+      const trunc1 = address[0].slice(address.length - 6);
+      setTruncAddr(trunc0 + "...." + trunc1);
+    }
+  }, [address]);
 
   return (
-    <nav>
-      <div className="navbar bg-primary text-primary-content row-span-full">
+    <nav className="">
+      <div className="navbar bg-primary text-primary-content row-span-full gap-2">
         <a className="normal-case text-xl flex-1">🎁 GIFTED</a>
 
-        <label htmlFor="worksModal" className="btn btn-secondary">
+        <label
+          htmlFor="worksModal"
+          className="btn btn-secondary drop-shadow-lg"
+        >
           How it works
         </label>
         <WorksModal />
 
-        <label htmlFor="giftsModal" className="btn btn-secondary">
+        <label
+          htmlFor="giftsModal"
+          className="btn btn-secondary drop-shadow-lg"
+        >
           My Sent Gifts
         </label>
         <GiftsModal />
 
-        <label htmlFor="metamaskModal" className="btn btn-focus">
-          {disconnected ? "Connect to Metamask" : address}
+        <label htmlFor="metamaskModal" className="btn btn-focus drop-shadow-lg">
+          {disconnected ? "Connect to Metamask" : truncAddr}
         </label>
-        <MetamaskModal provider={props.provider} setProvider={props.setProvider} setAddress={setAddress} />
+        <MetamaskModal
+          provider={props.provider}
+          setProvider={props.setProvider}
+          setAddress={setAddress}
+        />
       </div>
     </nav>
   );

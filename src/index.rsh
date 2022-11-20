@@ -3,6 +3,7 @@
 const common = {
   funded: Fun([], Null),
   informTimeout: Fun([], Null),
+  informRedeemed: Fun([UInt], Null),
 };
 
 export const main = Reach.App(
@@ -10,24 +11,22 @@ export const main = Reach.App(
   [
     Participant("Gifter", {
       ...common,
-      getParams: Fun(
-        [],
-        Object({
+      getParams:         Object({
           recipient: Address,
           payment: UInt,
           maturity: UInt,
-        })
+        }
       ),
       pass: UInt,
     }),
     Participant("Recipient", {
       ...common,
-      unwrap: Fun([], UInt),
+      pass: UInt,
     }),
   ],
   (Gifter, Recipient) => {
     Gifter.only(() => {
-      const { recipient, payment, maturity } = declassify(interact.getParams());
+      const { recipient, payment, maturity } = declassify(interact.getParams);
       const _pass = interact.pass;
       const passDigest = declassify(digest(_pass));
     });
@@ -40,7 +39,7 @@ export const main = Reach.App(
     });
     wait(relativeTime(maturity));
     Recipient.only(() => {
-      const pass = declassify(interact.unwrap());
+      const pass = declassify(interact.pass);
       assume(passDigest == digest(pass));
     });
 
@@ -50,10 +49,16 @@ export const main = Reach.App(
       });
     };
 
-    Recipient.publish(pass).timeout(relativeTime(maturity+5), () => closeTo(Gifter, informTimeout));
+
+    Recipient.publish(pass)//.timeout(relativeTime(maturity+5), () => closeTo(Gifter, informTimeout));
     require(passDigest == digest(pass));
     transfer(payment).to(Recipient);
     commit();
+
+    each([Gifter, Recipient], () => {
+      interact.informRedeemed(payment);
+    });
+
     exit();
   }
 );

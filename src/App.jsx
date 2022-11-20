@@ -4,17 +4,27 @@ import Hero from "./components/Hero";
 import Footer from "./components/Footer";
 import Nav from "./components/Nav";
 import { loadStdlib } from "@reach-sh/stdlib";
-import * as backend from "./build/index.main.mjs";
 
 function App() {
   const [reach, setReach] = useState();
   const [provider, setProvider] = useState();
+  const [isFunded, setIsFunded] = useState(false);
+  const [redeemed, setRedeemed] = useState(false);
+  const state = {
+    reach,
+    setReach,
+    provider,
+    setProvider,
+    isFunded,
+    setIsFunded,
+    redeemed,
+    setRedeemed
+  };
 
   useEffect(() => {
     async function loadChainData() {
       const stdlib = loadStdlib(provider);
       setReach(stdlib);
-      console.log(await provider.getBalance("0x0c3D44dF44ACD523092454309067858Eff444693"));
     }
     if (typeof provider !== "undefined") {
       loadChainData();
@@ -22,22 +32,14 @@ function App() {
   }, [provider]);
 
   useEffect(() => {
-    const performReachCommands = async () => {
-      const acc = await reach.getDefaultAccount();
-      const balAtomic = await reach.balanceOf(acc);
-      const bal = reach.formatCurrency(balAtomic, 4);
-
-      console.log(`Acc is ${acc}`);
-      console.log(`Acc is ${balAtomic}`);
-      console.log(`Acc is ${bal}`);
-    };
+    const performReachCommands = async () => {};
     performReachCommands();
   }, [reach]);
 
   return (
-    <div className="App min-h-screen">
+    <div className="App flex flex-col h-screen justify-between">
       <Nav provider={provider} setProvider={setProvider} />
-      <Hero />
+      <Hero state={state} />
       <Footer />
     </div>
   );

@@ -8,7 +8,7 @@ export default function Hero(props) {
 
   const choice = () => {
     return (
-      <div className="hero-content flex-col lg:flex-row-reverse shadow-xl bg-base-300 rounded-xl py-10 px-10 border-2 border-secondary m-30">
+      <div className="hero-content flex-col lg:flex-row-reverse shadow-xl bg-base-300 rounded-xl py-10 px-10 border-2 border-secondary m-30  min-h-full">
         <img src={heroImage} className="max-w-sm rounded-lg " />
         <div className="">
           <h1 className="text-5xl font-bold text-focus">GIFTED CRYPTO 🪙</h1>
@@ -35,17 +35,15 @@ export default function Hero(props) {
   };
 
   const handleChange = (choice) => {
-    console.log(choice);
-    console.log(mode);
     setMode(choice);
   };
 
   return (
     <div className="hero  min-h-full bg-base-200">
       {mode === "giver" ? (
-        <Giver provider={props.provider} back={handleChange} />
+        <Giver state={props.state} back={handleChange} />
       ) : mode === "recipient" ? (
-        <Recipient provider={props.provider} back={handleChange} />
+        <Recipient state={props.state} back={handleChange} />
       ) : (
         choice()
       )}

@@ -7657,14 +7657,19 @@ __metadata:
     dotenv: ^16.0.3
     emojisplosion: ^2.6.1
     ethers: ^5.7.2
+    hex2ascii: ^0.0.3
+    hex2dec: ^1.1.2
+    ishex: ^2.1.0
     metamask: ^0.0.1-security
     postcss: ^8.4.19
+    prettier: ^2.7.1
     process: ^0.11.10
     reach: ^1.0.1
     react: ^18.2.0
     react-dom: ^18.2.0
     react-error-overlay: 6.0.9
     react-scripts: latest
+    react-spinners: ^0.13.6
     tailwindcss: ^3.2.4
     vite: ^3.2.3
   languageName: unknown
@@ -7898,6 +7903,20 @@ __metadata:
   bin:
     he: bin/he
   checksum: 3d4d6babccccd79c5c5a3f929a68af33360d6445587d628087f39a965079d84f18ce9c3d3f917ee1e3978916fc833bb8b29377c3b403f919426f91bc6965e7a7
+  languageName: node
+  linkType: hard
+
+"hex2ascii@npm:^0.0.3":
+  version: 0.0.3
+  resolution: "hex2ascii@npm:0.0.3"
+  checksum: 4b964b1b6741143dc68edca9d29b545e587b562c182028f0037d5bdbd5af2ac8df094cf2c71a4dc2da00110a62f8d103828990cc8dea49db3f6f42db762b8f9b
+  languageName: node
+  linkType: hard
+
+"hex2dec@npm:^1.1.2":
+  version: 1.1.2
+  resolution: "hex2dec@npm:1.1.2"
+  checksum: 885d5035105ce20efa5b47f5b7e6f5cf714fcfa262f9cc2575009f3b662465ff07037c96cbdd26ec97794101d8c208488356fee3e3a56e02569e079060c9562a
   languageName: node
   linkType: hard
 
@@ -8577,6 +8596,13 @@ __metadata:
   version: 2.0.0
   resolution: "isexe@npm:2.0.0"
   checksum: 26bf6c5480dda5161c820c5b5c751ae1e766c587b1f951ea3fcfc973bafb7831ae5b54a31a69bd670220e42e99ec154475025a468eae58ea262f813fdc8d1c62
+  languageName: node
+  linkType: hard
+
+"ishex@npm:^2.1.0":
+  version: 2.1.0
+  resolution: "ishex@npm:2.1.0"
+  checksum: 0524f8e3653cf70ec3b5fd926b369ce30ff877d14294a65e8c3fc4cb6d74e2264a4bcb8c4fdcdafe88b3f05365edbd0ce40154bb54af164d568fd44e23497115
   languageName: node
   linkType: hard
 
@@ -11532,6 +11558,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"prettier@npm:^2.7.1":
+  version: 2.7.1
+  resolution: "prettier@npm:2.7.1"
+  bin:
+    prettier: bin-prettier.js
+  checksum: 55a4409182260866ab31284d929b3cb961e5fdb91fe0d2e099dac92eaecec890f36e524b4c19e6ceae839c99c6d7195817579cdffc8e2c80da0cb794463a748b
+  languageName: node
+  linkType: hard
+
 "pretty-bytes@npm:^5.3.0, pretty-bytes@npm:^5.4.1":
   version: 5.6.0
   resolution: "pretty-bytes@npm:5.6.0"
@@ -11930,6 +11965,16 @@ __metadata:
   bin:
     react-scripts: bin/react-scripts.js
   checksum: 92afa2f245c7092ccc97d5609dc7a2130616262e34da7f15072d9442e2d2e1d4909a91022abd1faac1336eb17c5525a10d9bd43e1ae374c7ec941ca20addca68
+  languageName: node
+  linkType: hard
+
+"react-spinners@npm:^0.13.6":
+  version: 0.13.6
+  resolution: "react-spinners@npm:0.13.6"
+  peerDependencies:
+    react: ^16.0.0 || ^17.0.0 || ^18.0.0
+    react-dom: ^16.0.0 || ^17.0.0 || ^18.0.0
+  checksum: 0e557190b5811e62774de0000f91fdcc3afe845872084abd5620d16335eb8292ed3fb3fdb94527fe2802a8366ac4e5d42c8e5bffda9e8ed0d85d3c34b3829d8e
   languageName: node
   linkType: hard
 
