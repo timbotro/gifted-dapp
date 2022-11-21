@@ -21,7 +21,7 @@ export const main = Reach.App(() => {
     ...common,
     pass: UInt,
   });
-  const vMaturity = View("Maturity", { maturity: UInt });
+  const vTimeleft = View("Timeleft", { timeleft: UInt });
   const vCreated = View("Created", { created: UInt });
   const vRecipient = View("Giftee", { recipient: Address });
   init();
@@ -39,14 +39,43 @@ export const main = Reach.App(() => {
 
   vRecipient.recipient.set(recipient);
   vCreated.created.set(thisConsensusTime());
-  vMaturity.maturity.set(maturity);  
+
+  // var thisTime = 0
+  // invariant(balance() == payment)
+  // while(thisTime < finalTime){
+
+  //   const [
+  //     lastPrice,
+  //     isFirstBid,
+  // ] = parallelReduce(true)
+  //     .define(() => {
+  //       V.currentBid.set(lastPrice);
+  //     })
+  //     .invariant(balance(nftId) == amt)
+  //     .invariant(balance() == (isFirstBid ? 0 : lastPrice))
+  //     .while(lastConsensusTime() <= end)
 
   commit();
+  const endTime = lastConsensusTime() + maturity;
 
+  const [timeleft] = parallelReduce([endTime])
+    .define(()=>{vTimeleft.timeleft.set(timeleft)})
+    .invariant(balance() == payment)
+    .while(lastConsensusTime() <= end)
+    .timeout(absoluteTime(endTime), () => {
+      Creator.publish();
+      return [timeleft];
+    });
+
+  //   thisTime = thisConsensusTime()
+  //   vTimeleft.timeleft.set(timeleft);
+  //   wait(absoluteTime(1))
+  //   continue
+  // }
 
   unknowable(Recipient, Gifter(_pass));
 
-  wait(relativeTime(maturity));
+  // wait(relativeTime(maturity));
   Recipient.only(() => {
     const pass = declassify(interact.pass);
     assume(passDigest == digest(pass));

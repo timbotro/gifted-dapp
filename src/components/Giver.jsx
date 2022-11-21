@@ -1,18 +1,18 @@
 import React, { useRef, useState, useEffect } from "react";
 import * as backend from "../build/index.main.mjs";
-import {returnGiftCode, isValid} from "../util/utils"
+import { returnGiftCode, isValid } from "../util/utils";
 import SentWaitingModal from "./modals/SentWaitingModal.jsx";
-
 
 export default function Giver(props) {
   const [formdata, setFormdata] = useState({
     maturity: 0,
     address: "",
     timeout: 0,
-    amount: 0
+    amount: 0,
   });
   const [addressValidity, setAddressValidity] = useState(true);
-  const [giftCode, setGiftCode] = useState("")
+  const [giftCode, setGiftCode] = useState("");
+  const [price, setPrice] = useState("--");
   const { provider, reach } = props.state;
   const submitbtn = useRef(null);
   const BLOCK_TIME = 12;
@@ -22,20 +22,16 @@ export default function Giver(props) {
     invalidAddress: "input input-bordered input-error w-full max-w-xs text-sm",
   };
 
-
-
   const funded = () => {
-    console.log("Funded Function fired!")
-    props.state.setIsFunded(true)
-  }
+    console.log("Funded Function fired!");
+    props.state.setIsFunded(true);
+  };
 
   const informRedeemed = (input) => {
     console.log("Gift has been unwrapped!");
-    console.log(input);
-    const amount = props.state.reach.formatCurrency(input, 4)
-    props.state.setClaim({redeemed: true, amount });
+    const amount = props.state.reach.formatCurrency(input, 4);
+    props.state.setClaim({ redeemed: true, amount });
   };
-
 
   const handleChange = (event) => {
     const { name, value, type } = event.target;
@@ -79,10 +75,21 @@ export default function Giver(props) {
     }
   }, [formdata.address]);
 
-//   useEffect(()=>{
-//     console.log("TO BE SHARED with Recipient:  " + giftCode)
-//   },[giftCode])
- 
+  useEffect(() => {
+    const getPrice = async () => {
+      try {
+        const resp = await fetch(
+          "https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=usd"
+        );
+        const price = (await resp.json()).ethereum.usd
+        setPrice(price)
+      } catch (e) {
+        console.log("Price Unavailable");
+      }
+    };
+
+    getPrice();
+  }, []);
 
   const sendGift = async () => {
     const acc = await reach.getDefaultAccount();
@@ -94,25 +101,17 @@ export default function Giver(props) {
       payment: amt,
       maturity: formdata.maturity,
     };
-    backend.Gifter(ctc, { getParams, pass: psuedoRand , funded, informRedeemed});
-
+    backend.Gifter(ctc, {
+      getParams,
+      pass: psuedoRand,
+      funded,
+      informRedeemed,
+    });
 
     const ctcInfoStr = JSON.stringify(await ctc.getInfo(), null, 2);
-    const code = returnGiftCode(ctcInfoStr,psuedoRand.toString())
-    setGiftCode(code)
+    const code = returnGiftCode(ctcInfoStr, psuedoRand.toString());
+    setGiftCode(code);
   };
-  //   useEffect(() => {
-  //     const performReachCommands = async () => {
-  //       const acc = await reach.getDefaultAccount();
-  //       const balAtomic = await reach.balanceOf(acc);
-  //       const bal = reach.formatCurrency(balAtomic, 4);
-
-  //       console.log(`Acc is ${acc}`);
-  //       console.log(`Acc is ${balAtomic}`);
-  //       console.log(`Acc is ${bal}`);
-  //     };
-  //     performReachCommands();
-  //   }, [reach]);
 
   return (
     <div className="hero-content flex-col lg:flex-row shadow-xl bg-base-300 rounded-xl py-10 px-10 border-2 border-secondary m-30">
@@ -229,14 +228,24 @@ export default function Giver(props) {
               />
               <label className="label">
                 <span></span>
-                <span className="label-text-alt">~ $0.02</span>
+                <span className="label-text-alt">~ ${(price * formdata.amount).toFixed(2)}</span>
               </label>
               {/* <input type="range" min="0" max="100" value="40" className="range range-xs" /> */}
             </div>
           </div>
 
-          <label htmlFor="sent-waiting-modal" className="btn btn-primary bg-center col-span-2 form-control drop-shadow-md" onClick={sendGift}>SEND GIFT 🚀</label>
-          <SentWaitingModal state={props.state} code={giftCode} setGiftCode={setGiftCode}/>
+          <label
+            htmlFor="sent-waiting-modal"
+            className="btn btn-primary bg-center col-span-2 form-control drop-shadow-md"
+            onClick={sendGift}
+          >
+            SEND GIFT 🚀
+          </label>
+          <SentWaitingModal
+            state={props.state}
+            code={giftCode}
+            setGiftCode={setGiftCode}
+          />
         </div>
       </form>
     </div>

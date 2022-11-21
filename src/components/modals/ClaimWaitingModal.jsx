@@ -10,15 +10,14 @@ const override = {
   borderColor: "red",
 };
 
-/// TODO: implement cancel of explosions
+/// TODO:
 /// store log of opened presents and from whom
 /// Timeouts
-/// Maturity
-/// detecting if claimed already
+
 
 export default function ClaimWaitingModal(props) {
   const explode = () => {
-    const { cancel } = emojisplosions({
+    const { cancel } = emojisplosion({
       emojiCount: 10,
       emojis: ["💍", "💎", "🪙", "💰️", "💵"],
       physics: {
@@ -44,12 +43,6 @@ export default function ClaimWaitingModal(props) {
         </h3>
         <h3 className="text-xl drop-shadow-sm">waiting for confirmation</h3>
         <div className="sweet-loading py-10 px-10">
-          {/* <button onClick={() => setLoading(!loading)}>Toggle Loader</button> */}
-          {/* <input
-          value={color}
-          onChange={(input) => setColor(input.target.value)}
-          placeholder="Color of the loader"
-        /> */}
 
           <ClipLoader
             color="#123234"
@@ -76,8 +69,16 @@ export default function ClaimWaitingModal(props) {
     return props.state.reach.formatCurrency(props.amount.toString(), 4);
   };
 
+  const clearState = () => {
+    props.setGiftcode("")
+    props.setClaim({redeemed:false, amount:0})
+  }
+
   const redeemed = () => {
-    const cancel = explode();
+    explode();
+    explode();
+    explode();
+    explode();
     return (
       <div className="grid grid-cols-1 gap-5">
         <h1 className="text-xl font-bold col-span-1">
@@ -118,6 +119,7 @@ export default function ClaimWaitingModal(props) {
           <label
             htmlFor="claim-waiting-modal"
             className="btn btn-sm btn-circle absolute right-2 top-2"
+            onClick={clearState}
           >
             ✕
           </label>

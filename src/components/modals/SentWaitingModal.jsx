@@ -9,11 +9,8 @@ const override = {
   borderColor: "red",
 };
 
-  /// TODO: implement cancel of explosions
+  /// TODO: 
   /// store log of opened presents and for whom
-  /// Timeouts
-  /// Maturity
-  /// detecting if claimed already
 
 export default function SentWaitingModal(props) {
   const inputEl = useRef(null);
@@ -53,12 +50,6 @@ export default function SentWaitingModal(props) {
         </h3>
         <h3 className="text-xl drop-shadow-sm">waiting for confirmation</h3>
         <div className="sweet-loading py-10 px-10">
-          {/* <button onClick={() => setLoading(!loading)}>Toggle Loader</button> */}
-          {/* <input
-          value={color}
-          onChange={(input) => setColor(input.target.value)}
-          placeholder="Color of the loader"
-        /> */}
 
           <ClipLoader
             color="#123234"
