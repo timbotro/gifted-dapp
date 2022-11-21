@@ -8,7 +8,7 @@ export default function Hero(props) {
 
   const choice = () => {
     return (
-      <div className="hero-content flex-col lg:flex-row-reverse shadow-xl bg-base-300 rounded-xl py-10 px-10 border-2 border-secondary m-30  min-h-full">
+      <div className="hero-content flex-col lg:flex-row-reverse shadow-xl bg-base-300 rounded-xl py-10 px-10 border-2 border-secondary m-30  min-h-max">
         <img src={heroImage} className="max-w-sm rounded-lg " />
         <div className="">
           <h1 className="text-5xl font-bold text-focus">GIFTED CRYPTO 🪙</h1>
