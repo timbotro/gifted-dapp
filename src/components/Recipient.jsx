@@ -122,7 +122,7 @@ export default function Recipient(props) {
   }, [giftcode, props.state.reach]);
 
   const displayCountDown = () => {
-    if (codeValidity && account && !isClaimed && isLoaded) {
+    if (codeValidity && account && !isClaimed && isLoaded && isValidAddress) {
       if (timeLeft <= 0) {
         return (
           <div className="alert alert-success shadow-lg">
@@ -230,7 +230,7 @@ export default function Recipient(props) {
   };
 
   const displayHasBalance = () => {
-    if (codeValidity && account && isLoaded) {
+    if (codeValidity && account && isLoaded && isValidAddress) {
       if (!isClaimed) {
         return (
           <div className="alert alert-success shadow-lg">
@@ -269,7 +269,7 @@ export default function Recipient(props) {
                   d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
                 />
               </svg>
-              <span>Sorry, this gift has already been claimed.</span>
+              <span>Sorry, this gift been claimed or does not exist.</span>
             </div>
           </div>
         );

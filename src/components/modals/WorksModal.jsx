@@ -6,7 +6,7 @@ export default function WorksModal() {
       <input type="checkbox" id="worksModal" className="modal-toggle" />
       <div className="modal text text-neutral-focus">
         <div className="modal-box base-300">
-          <h3 className="font-bold text-lg">Congratulations random Internet user!</h3>
+          <h3 className="font-bold text-lg">TODO </h3>
           <p className="py-4">
             You've been selected for a chance to get one year of subscription to use Wikipedia for free!
           </p>

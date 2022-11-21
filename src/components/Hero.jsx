@@ -11,10 +11,11 @@ export default function Hero(props) {
       <div className="hero-content flex-col lg:flex-row-reverse shadow-xl bg-base-300 rounded-xl py-10 px-10 border-2 border-secondary m-30  min-h-max">
         <img src={heroImage} className="max-w-sm rounded-lg " />
         <div className="">
-          <h1 className="text-5xl font-bold text-focus">GIFTED CRYPTO 🪙</h1>
+          {/* <h1 className="text-5xl font-bold subpixel-antialiased text-focus">GIFTED CRYPTO 🪙</h1> */}
+          <h1 className="font-extrabold text-transparent text-7xl bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600">GIFTED CRYPTO</h1>
           <p className="py-6">
-            Send the gift of time-locked cryptocurrency to someone! If they do not open their present, you can always refund it 
-            back to your wallet.
+          Send the gift of time-locked cryptocurrency to someone! If they do not open their present, you can always refund it 
+            back to your wallet 🪙
           </p>
           <div className="flex w-full mt-10">
             <div className="grid h-20 flex-grow card bg-base-300 rounded-box place-items-center">
