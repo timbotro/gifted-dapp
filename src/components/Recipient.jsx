@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { decodeGiftCode } from "../util/utils";
 import * as backend from "../build/index.main.mjs";
 import ClaimWaitingModal from "./modals/ClaimWaitingModal";
+import { isAddress } from "ethers/lib/utils";
 
 export default function Recipient(props) {
   const [giftcode, setGiftcode] = useState("");
@@ -102,7 +103,7 @@ export default function Recipient(props) {
         setIsLoaded(true)
       } catch (e){
         console.error("error is" + e.toString())
-        if (e.toString().includes("")){
+        if (e.toString().includes("View Giftee.recipient is not set")){
           setIsClaimed(true)
           setIsLoaded(true)
         }
@@ -114,8 +115,8 @@ export default function Recipient(props) {
 
     // if (giftcode.length < 40 || isValid()) {
     if (isValid()) {
-      timbo();
       setCodeValidity(true);
+      timbo();
     } else {
       setCodeValidity(false);
     }
@@ -230,7 +231,7 @@ export default function Recipient(props) {
   };
 
   const displayHasBalance = () => {
-    if (codeValidity && account && isLoaded && isValidAddress) {
+    if (codeValidity && isLoaded ) {
       if (!isClaimed) {
         return (
           <div className="alert alert-success shadow-lg">
