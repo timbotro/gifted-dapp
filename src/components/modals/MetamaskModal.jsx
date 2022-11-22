@@ -1,5 +1,5 @@
 import React, { useEffect, CSSProperties } from "react";
-import { ethers } from "ethers";
+import { ethers, providers } from "ethers";
 import detectEthereumProvider from "@metamask/detect-provider";
 
 export default function MetamaskModal(props) {
@@ -9,8 +9,12 @@ export default function MetamaskModal(props) {
       provider = await detectEthereumProvider({ mustBeMetaMask: true });
       if (provider) {
         try {
-          const req = await provider.request({ method: "eth_requestAccounts" });
-          props.setAddress(req);
+          const sepolia = "0xaa36a7"
+          await provider.request({
+            method: 'wallet_switchEthereumChain',
+            params: [{ chainId: sepolia }]
+          });
+
           // await provider.request({
           //   method: "wallet_addEthereumChain",
           //   params: [
@@ -31,9 +35,14 @@ export default function MetamaskModal(props) {
             method: "eth_chainId",
           });
 
-          if (chainId === "0xaa36a7") {
+          if (chainId ===sepolia) {
             const prov = new ethers.providers.Web3Provider(window.ethereum);
             props.setProvider(prov);
+            const req = await provider.request({ method: "eth_requestAccounts" });
+            props.setAddress(req);
+  
+          } else {
+            console.error("Not connected to Sepolia")
           }
           provider.on("accountsChanged", (accounts) => {
             if (accounts.length === 0) {
@@ -41,7 +50,8 @@ export default function MetamaskModal(props) {
             }
           });
           provider.on("chainChanged", () => {
-            window.location.reload();
+            // window.location.reload();
+            console.log(`Chain changed to ${chainId}`)
           });
         } catch (e) {
           console.error(e);

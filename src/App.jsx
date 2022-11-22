@@ -36,11 +36,10 @@ function App() {
     const performReachCommands = async () => {};
     performReachCommands();
   }, [reach]);
-
   return (
-    <div className="App flex flex-col h-screen justify-between">
+    <div className="App flex flex-col min-h-screen justify-between bg-base-300">
       <Nav provider={provider} setProvider={setProvider} />
-      <Hero state={state} />
+      <Hero className="w-full"state={state} />
       <Footer />
     </div>
   );

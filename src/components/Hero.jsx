@@ -8,11 +8,11 @@ export default function Hero(props) {
 
   const choice = () => {
     return (
-      <div className="hero-content flex-col lg:flex-row-reverse shadow-xl bg-base-300 rounded-xl py-10 px-10 border-2 border-secondary m-30  min-h-max">
+      <div className="hero-content flex-col lg:flex-row-reverse shadow-xl bg-base-300 rounded-xl py-10 px-10 border-2 border-secondary m-30">
         <img src={heroImage} className="max-w-sm rounded-lg " />
         <div className="">
           {/* <h1 className="text-5xl font-bold subpixel-antialiased text-focus">GIFTED CRYPTO 🪙</h1> */}
-          <h1 className="font-extrabold text-transparent text-7xl bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600">GIFTED CRYPTO</h1>
+          <h1 className="font-extrabold text-transparent text-8xl bg-clip-text bg-gradient-to-r from-teal-500 to-pink-500">GIFTED</h1>
           <p className="py-6">
           Send the gift of time-locked cryptocurrency to someone! If they do not open their present, you can always refund it 
             back to your wallet 🪙
@@ -40,7 +40,7 @@ export default function Hero(props) {
   };
 
   return (
-    <div className="hero  min-h-full bg-base-200">
+    <div className="hero  min-h-full bg-base-300">
       {mode === "giver" ? (
         <Giver state={props.state} back={handleChange} />
       ) : mode === "recipient" ? (

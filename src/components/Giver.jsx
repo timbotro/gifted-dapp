@@ -131,6 +131,7 @@ export default function Giver(props) {
             <label className="label">
               <span className="label-text">When can the gift be opened?</span>
             </label>
+            <label className="input-group">
             <input
               type="number"
               placeholder="Type here"
@@ -139,10 +140,12 @@ export default function Giver(props) {
               onChange={handleChange}
               name="maturity"
             />
+                    <span className="bg-secondary text-sm font-bold">Blocks</span>
+            </label>
             <label className="label">
               <span></span>
               <span className="label-text-alt">
-                Blocks ({calcTime(formdata.maturity)})
+                 ({calcTime(formdata.maturity)})
               </span>
             </label>
             <input
@@ -161,6 +164,7 @@ export default function Giver(props) {
                 How long does recipient have to open present?
               </span>
             </label>
+            <label className="input-group">
             <input
               type="number"
               placeholder="Type here"
@@ -169,10 +173,12 @@ export default function Giver(props) {
               onChange={handleChange}
               name="timeout"
             />
+                  <span className="bg-secondary text-sm font-bold">Blocks</span>
+            </label>
             <label className="label">
               <span></span>
               <span className="label-text-alt">
-                Blocks ({calcTime(formdata.timeout)})
+              ({calcTime(formdata.timeout)})
               </span>
             </label>
             <input
@@ -184,6 +190,8 @@ export default function Giver(props) {
               className="range range-xs"
               onChange={handleChange}
             />
+      
+        
           </div>
           <div className="">
             <div className="form-control w-full max-w-xs">
@@ -214,9 +222,11 @@ export default function Giver(props) {
             <div className="form-control w-full max-w-xs">
               <label className="label">
                 <span className="label-text">
-                  How much ETH would you like to send?
+                  How much would you like to send?
                 </span>
               </label>
+              <label className="input-group">
+
               <input
                 type="number"
                 placeholder="0.01"
@@ -226,6 +236,9 @@ export default function Giver(props) {
                 onChange={handleChange}
                 className="input input-bordered w-full max-w-xs"
               />
+              <span className="bg-secondary text-sm font-bold">ETH</span>
+              </label>
+          
               <label className="label">
                 <span></span>
                 <span className="label-text-alt">~ ${(price * formdata.amount).toFixed(2)}</span>

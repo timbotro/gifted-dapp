@@ -21,7 +21,7 @@ export default function Nav(props) {
   return (
     <nav className="">
       <div className="navbar bg-primary text-primary-content row-span-full gap-2">
-        <a className="normal-case text-4xl text-primary-content font-extrabold flex-1">🎁 GIFTED</a>
+        <a className="normal-case text-4xl text-secondary-focus font-extrabold flex-1">🎁 GIFTED</a>
 
         <label
           htmlFor="worksModal"
