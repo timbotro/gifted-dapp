@@ -81,8 +81,8 @@ export default function Giver(props) {
         const resp = await fetch(
           "https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=usd"
         );
-        const price = (await resp.json()).ethereum.usd
-        setPrice(price)
+        const price = (await resp.json()).ethereum.usd;
+        setPrice(price);
       } catch (e) {
         console.log("Price Unavailable");
       }
@@ -122,9 +122,10 @@ export default function Giver(props) {
         BACK
       </button>
       <form className="">
-        <h1 className="text-5xl font-bold text-focus">
-          Send to Someone else 💸
-        </h1>
+        <span className="font-extrabold text-transparent text-5xl bg-clip-text bg-gradient-to-r from-teal-500 to-pink-500">
+          Send to Someone else
+        </span>
+        <span className="text-5xl"> 💸</span>
         <div className="divider"></div>
         <div className="container m-auto grid grid-cols-2 gap-4">
           <div className="">
@@ -132,20 +133,20 @@ export default function Giver(props) {
               <span className="label-text">When can the gift be opened?</span>
             </label>
             <label className="input-group">
-            <input
-              type="number"
-              placeholder="Type here"
-              className="input input-bordered w-full max-w-xs"
-              value={formdata.maturity}
-              onChange={handleChange}
-              name="maturity"
-            />
-                    <span className="bg-secondary text-sm font-bold">Blocks</span>
+              <input
+                type="number"
+                placeholder="Type here"
+                className="input input-bordered w-full max-w-xs"
+                value={formdata.maturity}
+                onChange={handleChange}
+                name="maturity"
+              />
+              <span className="bg-secondary text-sm font-bold">Blocks</span>
             </label>
             <label className="label">
               <span></span>
               <span className="label-text-alt">
-                 ({calcTime(formdata.maturity)})
+                ({calcTime(formdata.maturity)})
               </span>
             </label>
             <input
@@ -165,20 +166,20 @@ export default function Giver(props) {
               </span>
             </label>
             <label className="input-group">
-            <input
-              type="number"
-              placeholder="Type here"
-              className="input input-bordered w-full max-w-xs"
-              value={formdata.timeout}
-              onChange={handleChange}
-              name="timeout"
-            />
-                  <span className="bg-secondary text-sm font-bold">Blocks</span>
+              <input
+                type="number"
+                placeholder="Type here"
+                className="input input-bordered w-full max-w-xs"
+                value={formdata.timeout}
+                onChange={handleChange}
+                name="timeout"
+              />
+              <span className="bg-secondary text-sm font-bold">Blocks</span>
             </label>
             <label className="label">
               <span></span>
               <span className="label-text-alt">
-              ({calcTime(formdata.timeout)})
+                ({calcTime(formdata.timeout)})
               </span>
             </label>
             <input
@@ -190,8 +191,6 @@ export default function Giver(props) {
               className="range range-xs"
               onChange={handleChange}
             />
-      
-        
           </div>
           <div className="">
             <div className="form-control w-full max-w-xs">
@@ -226,22 +225,23 @@ export default function Giver(props) {
                 </span>
               </label>
               <label className="input-group">
-
-              <input
-                type="number"
-                placeholder="0.01"
-                min="0"
-                name="amount"
-                value={formdata.amount}
-                onChange={handleChange}
-                className="input input-bordered w-full max-w-xs"
-              />
-              <span className="bg-secondary text-sm font-bold">ETH</span>
+                <input
+                  type="number"
+                  placeholder="0.01"
+                  min="0"
+                  name="amount"
+                  value={formdata.amount}
+                  onChange={handleChange}
+                  className="input input-bordered w-full max-w-xs"
+                />
+                <span className="bg-secondary text-sm font-bold">ETH</span>
               </label>
-          
+
               <label className="label">
                 <span></span>
-                <span className="label-text-alt">~ ${(price * formdata.amount).toFixed(2)}</span>
+                <span className="label-text-alt">
+                  ~ ${(price * formdata.amount).toFixed(2)}
+                </span>
               </label>
               {/* <input type="range" min="0" max="100" value="40" className="range range-xs" /> */}
             </div>

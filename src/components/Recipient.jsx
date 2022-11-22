@@ -13,7 +13,7 @@ export default function Recipient(props) {
   const [isEmptyContract, setIsEmptyContract] = useState();
   const [isClaimed, setIsClaimed] = useState(false);
   const [timeLeft, setTimeLeft] = useState(0);
-  const [isLoaded, setIsLoaded] = useState(false)
+  const [isLoaded, setIsLoaded] = useState(false);
   const styles = {
     address: "input input-bordered w-full text-sm",
     invalidAddress: "input input-bordered input-error w-full text-sm",
@@ -73,25 +73,25 @@ export default function Recipient(props) {
 
   useEffect(() => {
     const timbo = async () => {
-      setIsLoaded(false)
+      setIsLoaded(false);
       const { address } = decodeGiftCode(giftcode);
       const acc = await reach.getDefaultAccount();
       const ctc = acc.contract(backend, address);
-      
 
-      try{
+      try {
         const recipient = await ctc.unsafeViews.Giftee.recipient();
         console.log("recipient is " + recipient);
-        setIsValidAddress(recipient === await acc.getAddress());
+        setIsValidAddress(recipient === (await acc.getAddress()));
         const created = await ctc.unsafeViews.Created.created();
         const contractBal = await reach.balanceOf(address);
         const maturity = await ctc.unsafeViews.Maturity.maturity();
         const currentTime = await reach.getNetworkTime();
-        const timeleft = Number(created) + Number(maturity) - Number(currentTime);
+        const timeleft =
+          Number(created) + Number(maturity) - Number(currentTime);
         console.log("maturity is " + maturity);
         console.log("Creation time :" + created);
-        console.log("acc is " + await acc.getAddress());
-        
+        console.log("acc is " + (await acc.getAddress()));
+
         console.log(reach);
         console.log("Current network time: " + currentTime);
         console.log("contract balance is : " + contractBal);
@@ -99,18 +99,15 @@ export default function Recipient(props) {
         setIsEmptyContract(contractBal > 0);
         setTimeLeft(timeleft);
         setCtc(ctc);
-        setIsClaimed(false)
-        setIsLoaded(true)
-      } catch (e){
-        console.error("error is" + e.toString())
-        if (e.toString().includes("View Giftee.recipient is not set")){
-          setIsClaimed(true)
-          setIsLoaded(true)
+        setIsClaimed(false);
+        setIsLoaded(true);
+      } catch (e) {
+        console.error("error is" + e.toString());
+        if (e.toString().includes("View Giftee.recipient is not set")) {
+          setIsClaimed(true);
+          setIsLoaded(true);
         }
       }
-
-
-
     };
 
     // if (giftcode.length < 40 || isValid()) {
@@ -171,7 +168,7 @@ export default function Recipient(props) {
               <span className="badge">
                 {date.getHours() +
                   ":" +
-                  (date.getMinutes()+1) +
+                  (date.getMinutes() + 1) +
                   `   ` +
                   date.toDateString()}
               </span>
@@ -231,7 +228,7 @@ export default function Recipient(props) {
   };
 
   const displayHasBalance = () => {
-    if (codeValidity && isLoaded ) {
+    if (codeValidity && isLoaded) {
       if (!isClaimed) {
         return (
           <div className="alert alert-success shadow-lg">
@@ -280,7 +277,7 @@ export default function Recipient(props) {
 
   const canSubmit = () => {
     const valid = codeValidity;
-    if (valid && isEmptyContract && (timeLeft <= 0)) {
+    if (valid && isEmptyContract && timeLeft <= 0) {
       return (
         <label
           htmlFor="claim-waiting-modal"
@@ -296,7 +293,7 @@ export default function Recipient(props) {
           className="btn btn-primary bg-center col-span-1 form-control drop-shadow-md"
           disabled={true}
         >
-         Cannot Unwrap
+          Cannot Unwrap
         </label>
       );
     }
@@ -311,7 +308,10 @@ export default function Recipient(props) {
         BACK
       </button>
       <form className="">
-        <h1 className="text-5xl font-bold text-focus">Open a present 🎁</h1>
+        <span className="font-extrabold text-transparent text-5xl bg-clip-text bg-gradient-to-r from-teal-500 to-pink-500">
+          Open a present
+        </span>
+        <span className="text-5xl"> 🎁</span>
         <div className="divider"></div>
         <div className="grid grid-cols-1 gap-4">
           <div className="form-control col-span-1">
@@ -338,7 +338,12 @@ export default function Recipient(props) {
           <div>{displayCountDown()}</div>
           {canSubmit()}
 
-          <ClaimWaitingModal state={props.state} setClaim={props.state.setClaim} setGiftcode={setGiftcode} ctc={ctc} />
+          <ClaimWaitingModal
+            state={props.state}
+            setClaim={props.state.setClaim}
+            setGiftcode={setGiftcode}
+            ctc={ctc}
+          />
         </div>
       </form>
     </div>
