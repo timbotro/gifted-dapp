@@ -7,6 +7,7 @@ import { loadStdlib } from "@reach-sh/stdlib";
 
 function App() {
   const [reach, setReach] = useState();
+  const [address, setAddress] = useState("");
   const [provider, setProvider] = useState();
   const [isFunded, setIsFunded] = useState(false);
   const [claim, setClaim] = useState({redeemed:false, amount:0});
@@ -15,6 +16,8 @@ function App() {
     reach,
     setReach,
     provider,
+    address,
+    setAddress,
     setProvider,
     isFunded,
     setIsFunded,
@@ -38,7 +41,7 @@ function App() {
   }, [reach]);
   return (
     <div className="App flex flex-col min-h-screen justify-between bg-base-300">
-      <Nav provider={provider} setProvider={setProvider} />
+      <Nav provider={provider} setProvider={setProvider} state={state} />
       <Hero className="w-full"state={state} />
       <Footer />
     </div>

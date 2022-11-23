@@ -13,6 +13,7 @@ export default function Giver(props) {
   const [addressValidity, setAddressValidity] = useState(true);
   const [giftCode, setGiftCode] = useState("");
   const [price, setPrice] = useState("--");
+  const [createdTime, setCreatedTime] = useState(0)
   const { provider, reach } = props.state;
   const submitbtn = useRef(null);
   const BLOCK_TIME = 12;
@@ -76,6 +77,30 @@ export default function Giver(props) {
   }, [formdata.address]);
 
   useEffect(() => {
+    const store = async () => {
+      // console.log("created time is " +createdTime)
+      const opensAt = Number(createdTime) + Number(formdata.maturity);
+      
+      const fetchedItems = JSON.parse(localStorage.getItem(props.state.address));
+      const newItem = {
+        receipient: formdata.address,
+        amount: formdata.amount,
+        maturity: opensAt,
+        giftCode,
+      };
+      const items = fetchedItems === null ? [newItem] : [...fetchedItems, newItem]
+
+      localStorage.setItem(
+        props.state.address,
+        JSON.stringify(items)
+      );
+    };
+    if (props.state.isFunded === true) {
+      store();
+    }
+  }, [props.state.isFunded]);
+
+  useEffect(() => {
     const getPrice = async () => {
       try {
         const resp = await fetch(
@@ -107,10 +132,12 @@ export default function Giver(props) {
       funded,
       informRedeemed,
     });
+    const created = await ctc.unsafeViews.Created.created();
 
     const ctcInfoStr = JSON.stringify(await ctc.getInfo(), null, 2);
     const code = returnGiftCode(ctcInfoStr, psuedoRand.toString());
     setGiftCode(code);
+    setCreatedTime(created)
   };
 
   return (

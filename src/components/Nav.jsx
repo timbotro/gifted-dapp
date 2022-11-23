@@ -5,18 +5,17 @@ import MetamaskModal from "./modals/MetamaskModal";
 import GiftsModal from "./modals/GiftsModal";
 
 export default function Nav(props) {
-  const [address, setAddress] = useState("");
   const [truncAddr, setTruncAddr] = useState("");
 
   const disconnected = typeof props.provider === "undefined";
 
   useEffect(() => {
-    if (address !== ""){
-      const trunc0 = address[0].slice(0, 6);
-      const trunc1 = address[0].slice(address.length - 6);
+    if (props.state.address !== ""){
+      const trunc0 = props.state.address[0].slice(0, 6);
+      const trunc1 = props.state.address[0].slice(props.state.address.length - 6);
       setTruncAddr(trunc0 + "...." + trunc1);
     }
-  }, [address]);
+  }, [props.state.address]);
 
   return (
     <nav className="">
@@ -37,7 +36,7 @@ export default function Nav(props) {
         >
           My Sent Gifts
         </label>
-        <GiftsModal />
+        <GiftsModal state={props.state}/>
 
         <label htmlFor="metamaskModal" className="btn btn-focus drop-shadow-lg">
           {disconnected ? "Connect to Metamask" : truncAddr}
@@ -45,7 +44,7 @@ export default function Nav(props) {
         <MetamaskModal
           provider={props.provider}
           setProvider={props.setProvider}
-          setAddress={setAddress}
+          setAddress={props.state.setAddress}
         />
       </div>
     </nav>

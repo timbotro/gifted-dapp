@@ -12,7 +12,7 @@ export default function Hero(props) {
         <img src={heroImage} className="max-w-sm rounded-lg " />
         <div className="">
           {/* <h1 className="text-5xl font-bold subpixel-antialiased text-focus">GIFTED CRYPTO 🪙</h1> */}
-          <h1 className="font-extrabold text-transparent text-8xl bg-clip-text bg-gradient-to-r from-teal-500 to-pink-500">GIFTED</h1>
+          <h1 className="font-extrabold text-transparent w-fit text-8xl bg-clip-text bg-gradient-to-r from-teal-500 to-pink-500">GIFTED</h1>
           <p className="py-6">
           Send the gift of time-locked cryptocurrency to someone! If they do not open their present, you can always refund it 
             back to your wallet 🪙
