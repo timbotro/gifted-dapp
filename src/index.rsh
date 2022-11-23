@@ -14,6 +14,7 @@ export const main = Reach.App(() => {
       recipient: Address,
       payment: UInt,
       maturity: UInt,
+      timeout: UInt,
     }),
     pass: UInt,
   });
@@ -26,11 +27,11 @@ export const main = Reach.App(() => {
   const vRecipient = View("Giftee", { recipient: Address });
   init();
   Gifter.only(() => {
-    const { recipient, payment, maturity } = declassify(interact.getParams);
+    const { recipient, payment, maturity, timeout } = declassify(interact.getParams);
     const _pass = interact.pass;
     const passDigest = declassify(digest(_pass));
   });
-  Gifter.publish(recipient, payment, maturity, passDigest).pay(payment);
+  Gifter.publish(recipient, payment, maturity, passDigest, timeout).pay(payment);
   Recipient.set(recipient);
 
   each([Gifter, Recipient], () => {
@@ -58,7 +59,7 @@ export const main = Reach.App(() => {
     });
   };
 
-  Recipient.publish(pass); //.timeout(relativeTime(maturity+5), () => closeTo(Gifter, informTimeout));
+  Recipient.publish(pass).timeout(relativeTime(timeout), () => closeTo(Gifter, informTimeout));
   require(passDigest == digest(pass));
   transfer(payment).to(Recipient);
   commit();

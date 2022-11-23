@@ -7,7 +7,7 @@ export default function Giver(props) {
   const [formdata, setFormdata] = useState({
     maturity: 0,
     address: "",
-    timeout: 0,
+    timeout: 21500,
     amount: 0,
   });
   const [addressValidity, setAddressValidity] = useState(true);
@@ -125,6 +125,7 @@ export default function Giver(props) {
       recipient: formdata.address,
       payment: amt,
       maturity: formdata.maturity,
+      timeout: formdata.timeout
     };
     backend.Gifter(ctc, {
       getParams,
@@ -198,6 +199,7 @@ export default function Giver(props) {
                 placeholder="Type here"
                 className="input input-bordered w-full max-w-xs"
                 value={formdata.timeout}
+                // min="300"
                 onChange={handleChange}
                 name="timeout"
               />
@@ -212,7 +214,7 @@ export default function Giver(props) {
             <input
               type="range"
               name="timeout"
-              min="0"
+              min="300"
               max="72000"
               value={formdata.timeout}
               className="range range-xs"

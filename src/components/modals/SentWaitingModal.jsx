@@ -6,7 +6,7 @@ import { sleep } from "../../util/utils";
 const override = {
   display: "block",
   margin: "0 auto",
-  borderColor: "red",
+  borderColor: "#0000000",
 };
 
   /// TODO: 
@@ -52,7 +52,7 @@ export default function SentWaitingModal(props) {
         <div className="sweet-loading py-10 px-10">
 
           <ClipLoader
-            color="#123234"
+            color="teal"
             loading={!props.state.isFunded}
             cssOverride={override}
             size={150}
