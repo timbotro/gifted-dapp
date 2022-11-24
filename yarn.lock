@@ -3221,7 +3221,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react-dom@npm:^18.0.8":
+"@types/react-dom@npm:^18.0.9":
   version: 18.0.9
   resolution: "@types/react-dom@npm:18.0.9"
   dependencies:
@@ -3230,7 +3230,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react@npm:*, @types/react@npm:^18.0.24":
+"@types/react@npm:*, @types/react@npm:^18.0.25":
   version: 18.0.25
   resolution: "@types/react@npm:18.0.25"
   dependencies:
@@ -4676,7 +4676,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"boolbase@npm:^1.0.0":
+"boolbase@npm:^1.0.0, boolbase@npm:~1.0.0":
   version: 1.0.0
   resolution: "boolbase@npm:1.0.0"
   checksum: 3e25c80ef626c3a3487c73dbfc70ac322ec830666c9ad915d11b701142fab25ec1e63eff2c450c74347acfd2de854ccde865cd79ef4db1683f7c7b046ea43bb0
@@ -5766,9 +5766,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"daisyui@npm:^2.39.1":
-  version: 2.41.0
-  resolution: "daisyui@npm:2.41.0"
+"daisyui@npm:^2.42.0":
+  version: 2.42.0
+  resolution: "daisyui@npm:2.42.0"
   dependencies:
     color: ^4.2
     css-selector-tokenizer: ^0.8.0
@@ -5777,7 +5777,7 @@ __metadata:
   peerDependencies:
     autoprefixer: ^10.0.2
     postcss: ^8.1.6
-  checksum: 3b702493d2a172d3a195da30a10fe7eaec78534ae58c7cf2a1af59ce6701430130b498dcc29c8058e0657848e1609317a6a9a4ab9c672cc79b325b22012e7791
+  checksum: a6d8118e5d2235faffb624a7f75c992057edfbb7dce937cc160550dc5384f0ecdc5e72e0ce3bbd0962ac5e6353becfe66731c949906f803da991d1cd4240108e
   languageName: node
   linkType: hard
 
@@ -7663,11 +7663,11 @@ __metadata:
     "@reach-sh/stdlib": ^0.1.12-rc.9
     "@tailwindcss/aspect-ratio": ^0.4.2
     "@tailwindcss/typography": ^0.5.8
-    "@types/react": ^18.0.24
-    "@types/react-dom": ^18.0.8
+    "@types/react": ^18.0.25
+    "@types/react-dom": ^18.0.9
     "@vitejs/plugin-react": ^2.2.0
     autoprefixer: ^10.4.13
-    daisyui: ^2.39.1
+    daisyui: ^2.42.0
     dotenv: ^16.0.3
     emojisplosion: ^2.6.1
     ethers: ^5.7.2
@@ -7675,18 +7675,17 @@ __metadata:
     hex2dec: ^1.1.2
     ishex: ^2.1.0
     metamask: ^0.0.1-security
-    nth-check: ^2.1.1
     postcss: ^8.4.19
-    prettier: ^2.7.1
+    prettier: ^2.8.0
     process: ^0.11.10
     reach: ^1.0.1
     react: ^18.2.0
     react-dom: ^18.2.0
-    react-error-overlay: 6.0.9
-    react-scripts: latest
+    react-error-overlay: 6.0.11
+    react-scripts: ^5.0.1
     react-spinners: ^0.13.6
     tailwindcss: ^3.2.4
-    vite: ^3.2.3
+    vite: ^3.2.4
   languageName: unknown
   linkType: soft
 
@@ -10271,7 +10270,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"nth-check@npm:^2.1.1":
+"nth-check@npm:^1.0.2":
+  version: 1.0.2
+  resolution: "nth-check@npm:1.0.2"
+  dependencies:
+    boolbase: ~1.0.0
+  checksum: 59e115fdd75b971d0030f42ada3aac23898d4c03aa13371fa8b3339d23461d1badf3fde5aad251fb956aaa75c0a3b9bfcd07c08a34a83b4f9dadfdce1d19337c
+  languageName: node
+  linkType: hard
+
+"nth-check@npm:^2.0.1":
   version: 2.1.1
   resolution: "nth-check@npm:2.1.1"
   dependencies:
@@ -11574,12 +11582,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prettier@npm:^2.7.1":
-  version: 2.7.1
-  resolution: "prettier@npm:2.7.1"
+"prettier@npm:^2.8.0":
+  version: 2.8.0
+  resolution: "prettier@npm:2.8.0"
   bin:
     prettier: bin-prettier.js
-  checksum: 55a4409182260866ab31284d929b3cb961e5fdb91fe0d2e099dac92eaecec890f36e524b4c19e6ceae839c99c6d7195817579cdffc8e2c80da0cb794463a748b
+  checksum: 72004ce0cc9bb097daf3e3833f62495768724392c1d5b178dd47372337616e9e50ecbb0804f236596223f7b5eb1bbe69cefc8957dca21112c5777e77ef73a564
   languageName: node
   linkType: hard
 
@@ -11917,7 +11925,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-react-scripts@latest:
+"react-scripts@npm:^5.0.1":
   version: 5.0.1
   resolution: "react-scripts@npm:5.0.1"
   dependencies:
@@ -13828,7 +13836,7 @@ react-scripts@latest:
   languageName: node
   linkType: hard
 
-"vite@npm:^3.2.3":
+"vite@npm:^3.2.4":
   version: 3.2.4
   resolution: "vite@npm:3.2.4"
   dependencies:

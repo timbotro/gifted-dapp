@@ -15,7 +15,7 @@
     "@tailwindcss/aspect-ratio": "^0.4.2",
     "@tailwindcss/typography": "^0.5.8",
     "autoprefixer": "^10.4.13",
-    "daisyui": "^2.39.1",
+    "daisyui": "^2.42.0",
     "dotenv": "^16.0.3",
     "emojisplosion": "^2.6.1",
     "ethers": "^5.7.2",
@@ -23,26 +23,24 @@
     "hex2dec": "^1.1.2",
     "ishex": "^2.1.0",
     "metamask": "^0.0.1-security",
-    "nth-check": "^2.1.1",
     "postcss": "^8.4.19",
-    "prettier": "^2.7.1",
+    "prettier": "^2.8.0",
     "process": "^0.11.10",
     "reach": "^1.0.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-scripts": "latest",
+    "react-scripts": "^5.0.1",
     "react-spinners": "^0.13.6"
   },
   "devDependencies": {
-    "@types/react": "^18.0.24",
-    "@types/react-dom": "^18.0.8",
+    "@types/react": "^18.0.25",
+    "@types/react-dom": "^18.0.9",
     "@vitejs/plugin-react": "^2.2.0",
-    "react-error-overlay": "6.0.9",
+    "react-error-overlay": "6.0.11",
     "tailwindcss": "^3.2.4",
-    "vite": "^3.2.3"
+    "vite": "^3.2.4"
   },
   "resolutions": {
-    "react-error-overlay": "6.0.9",
-    "nth-check": "^2.1.1"
+    "react-error-overlay": "6.0.9"
   }
 }
