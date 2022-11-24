@@ -7675,6 +7675,7 @@ __metadata:
     hex2dec: ^1.1.2
     ishex: ^2.1.0
     metamask: ^0.0.1-security
+    nth-check: ^2.0.1
     postcss: ^8.4.19
     prettier: ^2.7.1
     process: ^0.11.10
