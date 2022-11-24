@@ -70,6 +70,7 @@ export default function ClaimWaitingModal(props) {
   const clearState = () => {
     props.setPassError(false)
     props.setGiftcode("");
+    props.state.setIsFunded(false);
     props.setClaim({ redeemed: false, amount: 0 });
   };
 

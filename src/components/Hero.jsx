@@ -19,13 +19,13 @@ export default function Hero(props) {
           </p>
           <div className="flex w-full mt-10">
             <div className="grid h-20 flex-grow card bg-base-300 rounded-box place-items-center">
-              <button className="btn btn-primary btn-wide" onClick={() => handleChange("giver")}>
+              <button className="btn btn-primary btn-wide drop-shadow-xl border-primary-focus" onClick={() => handleChange("giver")}>
                 Giving
               </button>
             </div>
             <div className="divider divider-horizontal">OR</div>
             <div className="grid h-20 flex-grow card bg-base-300 rounded-box place-items-center">
-              <button className="btn btn-secondary btn-wide" onClick={() => handleChange("recipient")}>
+              <button className="btn btn-secondary btn-wide border-secondary-focus" onClick={() => handleChange("recipient")}>
                 Receiving
               </button>
             </div>
