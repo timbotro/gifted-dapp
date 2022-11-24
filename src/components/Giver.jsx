@@ -13,7 +13,7 @@ export default function Giver(props) {
   const [addressValidity, setAddressValidity] = useState(true);
   const [giftCode, setGiftCode] = useState("");
   const [price, setPrice] = useState("--");
-  const [createdTime, setCreatedTime] = useState(0)
+  const [createdTime, setCreatedTime] = useState(0);
   const { provider, reach } = props.state;
   const submitbtn = useRef(null);
   const BLOCK_TIME = 12;
@@ -80,20 +80,20 @@ export default function Giver(props) {
     const store = async () => {
       // console.log("created time is " +createdTime)
       const opensAt = Number(createdTime) + Number(formdata.maturity);
-      
-      const fetchedItems = JSON.parse(localStorage.getItem(props.state.address));
+
+      const fetchedItems = JSON.parse(
+        localStorage.getItem(props.state.address)
+      );
       const newItem = {
         receipient: formdata.address,
         amount: formdata.amount,
         maturity: opensAt,
         giftCode,
       };
-      const items = fetchedItems === null ? [newItem] : [...fetchedItems, newItem]
+      const items =
+        fetchedItems === null ? [newItem] : [...fetchedItems, newItem];
 
-      localStorage.setItem(
-        props.state.address,
-        JSON.stringify(items)
-      );
+      localStorage.setItem(props.state.address, JSON.stringify(items));
     };
     if (props.state.isFunded === true) {
       store();
@@ -125,7 +125,7 @@ export default function Giver(props) {
       recipient: formdata.address,
       payment: amt,
       maturity: formdata.maturity,
-      timeout: formdata.timeout
+      timeout: formdata.timeout,
     };
     backend.Gifter(ctc, {
       getParams,
@@ -138,7 +138,32 @@ export default function Giver(props) {
     const ctcInfoStr = JSON.stringify(await ctc.getInfo(), null, 2);
     const code = returnGiftCode(ctcInfoStr, psuedoRand.toString());
     setGiftCode(code);
-    setCreatedTime(created)
+    setCreatedTime(created);
+  };
+
+  const sendButton = () => {
+    if (props.state.address.length === 0) {
+      return (
+        <label
+          htmlFor="sent-waiting-modal"
+          className="btn btn-primary bg-center col-span-2 form-control drop-shadow-md"
+          disabled={true}
+          onClick={sendGift}
+        >
+          Please Connect Metamask 🔌
+        </label>
+      );
+    } else {
+      return (
+        <label
+          htmlFor="sent-waiting-modal"
+          className="btn btn-primary bg-center col-span-2 form-control drop-shadow-md"
+          onClick={sendGift}
+        >
+          SEND GIFT 🚀
+        </label>
+      );
+    }
   };
 
   return (
@@ -276,13 +301,8 @@ export default function Giver(props) {
             </div>
           </div>
 
-          <label
-            htmlFor="sent-waiting-modal"
-            className="btn btn-primary bg-center col-span-2 form-control drop-shadow-md"
-            onClick={sendGift}
-          >
-            SEND GIFT 🚀
-          </label>
+          {sendButton()}
+
           <SentWaitingModal
             state={props.state}
             code={giftCode}

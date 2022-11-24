@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { decodeGiftCode } from "../util/utils";
 import * as backend from "../build/index.main.mjs";
 import ClaimWaitingModal from "./modals/ClaimWaitingModal";
-import { isAddress } from "ethers/lib/utils";
+import { sleep } from "../util/utils";
 
 export default function Recipient(props) {
   const [giftcode, setGiftcode] = useState("");
@@ -14,6 +14,7 @@ export default function Recipient(props) {
   const [isClaimed, setIsClaimed] = useState(false);
   const [timeLeft, setTimeLeft] = useState(0);
   const [isLoaded, setIsLoaded] = useState(false);
+  const [passError, setPassError] = useState(false)
   const styles = {
     address: "input input-bordered w-full text-sm",
     invalidAddress: "input input-bordered input-error w-full text-sm",
@@ -55,10 +56,18 @@ export default function Recipient(props) {
   };
 
   const unwrap = async () => {
-    const { pass, address } = decodeGiftCode(giftcode);
-    const acc = await reach.getDefaultAccount();
-    const ctc = acc.contract(backend, address);
-    backend.Recipient(ctc, { pass, funded, informRedeemed });
+    try {
+      const { pass, address } = decodeGiftCode(giftcode);
+      const acc = await reach.getDefaultAccount();
+      const ctc = acc.contract(backend, address);
+      await backend.Recipient(ctc, { pass, funded, informRedeemed });
+    } catch (e) {
+      console.error("Error unwrapping present");
+      if (e.toString().includes("Assertion failed: Recipient")){
+        console.log("Error with pass")
+        setPassError(true)
+      }
+    }
   };
 
   useEffect(() => {
@@ -79,8 +88,8 @@ export default function Recipient(props) {
       const ctc = acc.contract(backend, address);
 
       try {
+        sleep(500);
         const recipient = await ctc.unsafeViews.Giftee.recipient();
-        console.log("recipient is " + recipient);
         setIsValidAddress(recipient === (await acc.getAddress()));
         const created = await ctc.unsafeViews.Created.created();
         const contractBal = await reach.balanceOf(address);
@@ -88,14 +97,6 @@ export default function Recipient(props) {
         const currentTime = await reach.getNetworkTime();
         const timeleft =
           Number(created) + Number(maturity) - Number(currentTime);
-        console.log("maturity is " + maturity);
-        console.log("Creation time :" + created);
-        console.log("acc is " + (await acc.getAddress()));
-
-        console.log(reach);
-        console.log("Current network time: " + currentTime);
-        console.log("contract balance is : " + contractBal);
-        console.log("time left is : " + timeleft);
         setIsEmptyContract(contractBal > 0);
         setTimeLeft(timeleft);
         setCtc(ctc);
@@ -275,7 +276,7 @@ export default function Recipient(props) {
     }
   };
 
-  const canSubmit = () => {
+  const submitButton = () => {
     const valid = codeValidity;
     if (valid && isEmptyContract && timeLeft <= 0) {
       return (
@@ -333,16 +334,18 @@ export default function Recipient(props) {
             </label>
           </div>
 
-          <div className="">{displayAddressMatch()}</div>
-          <div className="">{displayHasBalance()}</div>
+          <div>{displayAddressMatch()}</div>
+          <div>{displayHasBalance()}</div>
           <div>{displayCountDown()}</div>
-          {canSubmit()}
+          {submitButton()}
 
           <ClaimWaitingModal
             state={props.state}
             setClaim={props.state.setClaim}
             setGiftcode={setGiftcode}
             ctc={ctc}
+            passError={passError}
+            setPassError={setPassError}
           />
         </div>
       </form>

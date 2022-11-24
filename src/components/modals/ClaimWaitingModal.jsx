@@ -14,7 +14,6 @@ const override = {
 /// store log of opened presents and from whom
 /// Timeouts
 
-
 export default function ClaimWaitingModal(props) {
   const explode = () => {
     const { cancel } = emojisplosion({
@@ -43,7 +42,6 @@ export default function ClaimWaitingModal(props) {
         </h3>
         <h3 className="text-xl drop-shadow-sm">waiting for confirmation</h3>
         <div className="sweet-loading py-10 px-10">
-
           <ClipLoader
             color="teal"
             loading={!props.state.redeemed}
@@ -70,9 +68,10 @@ export default function ClaimWaitingModal(props) {
   };
 
   const clearState = () => {
-    props.setGiftcode("")
-    props.setClaim({redeemed:false, amount:0})
-  }
+    props.setPassError(false)
+    props.setGiftcode("");
+    props.setClaim({ redeemed: false, amount: 0 });
+  };
 
   const saveAndReset = () => {
     sessionStorage.setItem("sentGift", { code: props.code });
@@ -112,6 +111,15 @@ export default function ClaimWaitingModal(props) {
     );
   };
 
+  const errorText = () => {
+    return ( <div>
+      <h3 className="text-xl font-bold drop-shadow-sm">
+      Error
+      </h3>
+      <h3 className="text-xl drop-shadow-sm">There is a problem with your giftcode, are you sure it is correct?</h3>
+    </div>)
+  }
+
   return (
     <div>
       <input
@@ -128,7 +136,11 @@ export default function ClaimWaitingModal(props) {
           >
             ✕
           </label>
-          {props.state.claim.redeemed === true ? redeemed() : progressSpinner()}
+          {props.passError === true
+            ? errorText()
+            : props.state.claim.redeemed === true
+            ? redeemed()
+            : progressSpinner()}
         </div>
       </div>
     </div>
